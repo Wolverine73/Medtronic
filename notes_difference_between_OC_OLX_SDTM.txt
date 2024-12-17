@@ -1,0 +1,31 @@
+﻿
+OC, OLX, and SDTM are three different potential sources. SDTM is the CDISC 
+standard and will eventually be the source but it isn’t quite ready. OC is 
+the legacy system. OLX is the new platform for data collection. The raw OLX 
+data goes into SDTM and then ADAM but because SDTM isn’t ready we are looking 
+at OLX as the source.
+
+----------------------------------------------------------------------------
+
+Screen Shots – Toad LSH
+
+Schemas:
+1.	BA_OLX_PAN_PRD
+2.	BA_PAN_SDTM_PRD
+3.	BA_PAN_DASH_PRD
+
+Notes:
+1.	OLX = NEW PLATFORM
+2.	OC = LEGACY
+3.	SDTM = CDISC STANDARD
+
+----------------------------------------------------------------------------
+
+proc sql;
+connect to oracle (USER=stropb2 PASS="Bss101699" PATH=LSH1.CORP.MEDTRONIC.COM); 
+create table m_dm as 
+select * from connection to oracle (
+select * from ba_pan_sdtm_prd.m_dm
+);
+disconnect from oracle;
+quit;
